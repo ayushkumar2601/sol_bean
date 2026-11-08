@@ -1,12 +1,25 @@
 {
   "name": "beanstick",
   "version": "0.1.0",
-  "description": "Beanstick — Agentic Fiat-Crypto Onramp",
+  "description": "Beanstick — Autonomous Fiat-to-Crypto Settlement Network on Solana",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "solana",
+    "anchor",
+    "ai-agents",
+    "defi",
+    "web3",
+    "zktls",
+    "escrow",
+    "spl-token",
+    "p2p-trading",
+    "onramp",
+    "neo4j",
+    "mlh-hackathon"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
