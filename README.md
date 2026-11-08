@@ -134,14 +134,31 @@ The core protocol is implemented in **Rust** using the **Anchor framework** loca
 
 ---
 
-## 📸 Interface Preview
+## 📸 Interface Screenshots & Demo
+
+### 1. Landing Page Overview (`public/landing1.png`)
+> *Sleek fintech landing experience featuring the natural-language AI agent trading terminal ("swap 100 USD to SOL") and instant settlement highlights.*
 
 <div align="center">
-  <img src="public/landing1.png" alt="Beanstick Landing Page" width="100%" />
-  <br/><br/>
-  <img src="public/landing2.png" alt="Autonomous Settlement Features" width="100%" />
-  <br/><br/>
-  <img src="public/swappage.png" alt="Solana P2P Trade Terminal" width="100%" />
+  <img src="public/landing1.png" alt="Landing Page Overview (landing1.png)" width="100%" />
+</div>
+
+<br/>
+
+### 2. Autonomous Network & Settlement Features (`public/landing2.png`)
+> *Decentralized LP agent swarm overview, Neo4j graph reputation routing, and multi-rail Web2-to-Solana fiat settlement architecture.*
+
+<div align="center">
+  <img src="public/landing2.png" alt="Autonomous Settlement Features (landing2.png)" width="100%" />
+</div>
+
+<br/>
+
+### 3. Solana P2P Swap Terminal (`public/swappage.png`)
+> *Live P2P settlement terminal executing Solana Anchor PDA escrows, SPL Token-2022 vault locks, and automated zkTLS proof-of-payment releases.*
+
+<div align="center">
+  <img src="public/swappage.png" alt="Solana P2P Trade Terminal (swappage.png)" width="100%" />
 </div>
 
 ---
