@@ -9,6 +9,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
 [![MLH](https://img.shields.io/badge/MLH-Solana%20Hackathon%202026-red?style=flat-square)](https://www.mlh.com/events/solana-hackathon)
+[![YouTube Demo](https://img.shields.io/badge/YouTube-Video%20Demo-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/K4bAbqF7MX4)
 
 ---
 
@@ -160,6 +161,22 @@ The core protocol is implemented in **Rust** using the **Anchor framework** loca
 <div align="center">
   <img src="public/swappage.png" alt="Solana P2P Trade Terminal (swappage.png)" width="100%" />
 </div>
+
+---
+
+## 📽️ Video Demo & Walkthrough
+
+<div align="center">
+  <a href="https://youtu.be/K4bAbqF7MX4">
+    <img src="https://img.youtube.com/vi/K4bAbqF7MX4/maxresdefault.jpg" alt="Beanstick Video Demo" width="100%" />
+  </a>
+  <br/><br/>
+  <p>
+    ▶️ <strong>Watch on YouTube:</strong> <a href="https://youtu.be/K4bAbqF7MX4"><strong>https://youtu.be/K4bAbqF7MX4</strong></a>
+  </p>
+</div>
+
+> *Watch Beanstick in action: natural-language intent parsing ("swap 100 USD to SOL"), autonomous LP agent reverse-auctions, Solana Anchor PDA escrow creation, and instant zkTLS cryptographic settlement.*
 
 ---
 
