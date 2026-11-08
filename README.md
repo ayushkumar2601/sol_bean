@@ -106,12 +106,72 @@ The core protocol is implemented in **Rust** using the **Anchor framework** loca
 
 | Account | Seeds | Description |
 | :--- | :--- | :--- |
-| **Protocol Config** | `["protocol-config"]` | Global configuration and protocol authority |
-| **LP Account** | `["lp-account", lp_authority.key()]` | LP Agent registry & performance state |
+| **Protocol Config** | `["config"]` | Global configuration and protocol authority |
+| **LP Account** | `["lp", lp_authority.key()]` | LP Agent registry & performance state |
 | **Escrow Account** | `["escrow", order_id.to_le_bytes()]` | Order state, amounts, deadlines, and hashes |
-| **Escrow Vault** | `["escrow-vault", escrow_pda.key()]` | Program-owned SPL Token PDA holding collateral |
+| **Escrow Vault** | `["vault", escrow_pda.key()]` | Program-owned SPL Token PDA holding collateral |
 | **Attestation** | `["attestation", escrow_pda.key()]` | Cryptographic zkTLS verification state |
 | **Reputation Root** | `["reputation-root", epoch.to_le_bytes()]` | On-chain Merkle root of graph trust scores |
+
+---
+
+## ⚡ Compute Budget & Priority Fee Architecture
+
+To guarantee sub-second execution on Solana devnet and mainnet-beta, Beanstick utilizes Solana **Versioned Transactions (v0)** configured with dynamic priority fees and Address Lookup Tables (ALTs):
+
+```
+┌────────────────────────────────────────────────────────┐
+│             Versioned Transaction (v0)                 │
+├────────────────────────────────────────────────────────┤
+│ 1. ComputeBudgetProgram.setComputeUnitLimit(250_000)   │
+│ 2. ComputeBudgetProgram.setComputeUnitPrice(50_000 µL) │
+│ 3. BeanstickProgram.lock_escrow / release_escrow       │
+│ 4. Address Lookup Tables (ALTs) Compression            │
+└────────────────────────────────────────────────────────┘
+```
+
+* **Dynamic Compute Budget:** Explicitly limits instruction CU allocation (typically ~60,000–68,000 CUs per instruction), preventing runaway transaction fees.
+* **Micro-Priority Fees:** Adds `50,000 micro-lamports per CU` (~0.000003 SOL) to secure rapid block inclusion ahead of unprioritized network traffic.
+* **Address Lookup Tables (ALTs):** Condenses 32-byte account public keys down to 1-byte indices, allowing complex multi-account atomic transfers within Solana's 1232-byte MTU limit.
+
+---
+
+## 🌐 AXL Peer-to-Peer Agent Messaging Protocol
+
+Beanstick coordinates its decentralized swarm of Liquidity Provider (LP) agents via the **AXL Peer-to-Peer Protocol** (`protocol/axl/bridge.ts`):
+
+* **Decentralized Node Discovery:** Each agent runs an AXL bridge node identified by an Ed25519 public key and IPv6 address.
+* **Reverse Auction Protocol:** When a buyer announces trade intent (`$100 USD → SOL`), the intent envelope is broadcast to active LP nodes.
+* **Message Envelope Schema:**
+  ```json
+  {
+    "from": "axl_ed25519_node_pubkey",
+    "timestamp": 1794157200000,
+    "data": {
+      "type": "REVERSE_AUCTION_QUOTE",
+      "order_id": 1001,
+      "fiat_rail": "UPI",
+      "crypto_mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "amount": 100000000,
+      "quoted_rate": 89.24,
+      "pda_commitment_hash": "0x4a7f8e9c..."
+    }
+  }
+  ```
+* **Neo4j Reputation Weighting:** Quotes are dynamically scored against graph centrality metrics; winning LPs are selected in <15 milliseconds.
+
+---
+
+## 🛡️ zkTLS Cryptographic Attestation Verification
+
+Bridging Web2 banking receipts to Solana requires verifiable proof of payment without exposing sensitive credentials:
+
+1. **Multi-Party Computation (MPC) Key-Splitting:** The buyer and Attestor agent jointly perform an ephemeral TLS handshake with the banking institution (Venmo, UPI, SEPA).
+2. **Zero Credential Leakage:** Only the encrypted HTTP ciphertext is processed. Passwords, session cookies, and account numbers remain completely confidential to the buyer.
+3. **ZK-SNARK Attestation:** The Attestor generates a succinct zero-knowledge proof verifying that the bank responded with HTTP 200 `COMPLETED` for the specific `order_id` and amount.
+4. **On-Chain Anchor Verification:** The Anchor program compares the proof hash against the registered order commitment, atomically transitioning the escrow from `LOCKED` → `ATTESTED` and triggering instant release.
+
+---
 
 ---
 
@@ -137,11 +197,11 @@ The core protocol is implemented in **Rust** using the **Anchor framework** loca
 
 ## 📸 Interface Screenshots & Demo
 
-### 1. Landing Page Overview (`public/landing1.png`)
+### 1. Landing Page Overview (`public/landing1_web.png`)
 > *Sleek fintech landing experience featuring the natural-language AI agent trading terminal ("swap 100 USD to SOL") and instant settlement highlights.*
 
 <div align="center">
-  <img src="public/landing1.png" alt="Landing Page Overview (landing1.png)" width="100%" />
+  <img src="public/landing1_web.png" alt="Landing Page Overview (landing1_web.png)" width="100%" />
 </div>
 
 <br/>
