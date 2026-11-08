@@ -134,6 +134,18 @@ The core protocol is implemented in **Rust** using the **Anchor framework** loca
 
 ---
 
+## 📸 Interface Preview
+
+<div align="center">
+  <img src="public/landing1.png" alt="Beanstick Landing Page" width="100%" />
+  <br/><br/>
+  <img src="public/landing2.png" alt="Autonomous Settlement Features" width="100%" />
+  <br/><br/>
+  <img src="public/swappage.png" alt="Solana P2P Trade Terminal" width="100%" />
+</div>
+
+---
+
 ## 📂 Repository Directory Layout
 
 ```
