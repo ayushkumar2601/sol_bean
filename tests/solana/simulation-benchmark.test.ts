@@ -138,3 +138,4 @@ describe('Beanstick On-Chain Simulation & Performance Benchmark Suite', () => {
     expect(costUsd).toBeLessThan(0.003); // Less than 0.3 cents
   });
 });
+
